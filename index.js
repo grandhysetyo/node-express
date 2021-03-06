@@ -2,32 +2,36 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+const userRouter = require('./src/router/users')
+
 app.get('/', (req, res) => {
-  res.send('Home')
+    const kelas = {
+        id: 1,
+        nama: 'Node JS'
+    }
+    res.json(kelas)
 })
 app.get('/about', (req, res) => {
-    res.send('About')
-})
-  
-app.get('/users', function(req, res){
-    res.send('Get Data users')
+    res.redirect('/users')
 })
 
-app.post('/users', function(req, res){
-    res.send('Post user')
-})
+// Express Router
+app.use(userRouter)
 
-app.put('/users', function(req, res){
-    res.send('Put user')
-})
-
-app.delete('/users', function(req, res){
-    res.send('Delete  user')
-})
 // Routes param
-app.get('/user/:id/book/:idBook', function(req,res){
+app.get('/book/:id/test/:idBook', function(req,res){
     res.send(req.params)
 })
+
+//Route Group
+app.route('/books')
+    .get(function(req, res){
+        res.send('Get book')
+    })
+    .post(function(req,res){
+        res.send('Post book')
+    })
+
 
 app.get('*', function(req, res){
     res.send('404 Not Found')
