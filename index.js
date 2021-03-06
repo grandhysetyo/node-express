@@ -24,6 +24,14 @@ app.put('/users', function(req, res){
 app.delete('/users', function(req, res){
     res.send('Delete  user')
 })
+// Routes param
+app.get('/user/:id/book/:idBook', function(req,res){
+    res.send(req.params)
+})
+
+app.get('*', function(req, res){
+    res.send('404 Not Found')
+})
 
 app.listen(port, () => {
   console.log(`Server app listening at http://localhost:${port}`)
