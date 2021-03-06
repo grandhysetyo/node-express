@@ -1,0 +1,23 @@
+{
+  "name": "node-express",
+  "version": "1.0.0",
+  "description": "Node js using framework Express js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grandhysetyo/node-express.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs"
+  ],
+  "author": "grandhysetyo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grandhysetyo/node-express/issues"
+  },
+  "homepage": "https://github.com/grandhysetyo/node-express#readme"
+}
