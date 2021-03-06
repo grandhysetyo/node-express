@@ -2,8 +2,16 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 const userRouter = require('./src/router/users')
 
+// Express Router
+app.use(userRouter)
+
+// default routes
 app.get('/', (req, res) => {
     const kelas = {
         id: 1,
@@ -14,9 +22,6 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.redirect('/users')
 })
-
-// Express Router
-app.use(userRouter)
 
 // Routes param
 app.get('/book/:id/test/:idBook', function(req,res){
