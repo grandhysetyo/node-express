@@ -26,8 +26,9 @@ router.put('/users/:id', function(req, res){
     res.send(users)
 })
 
-router.delete('/users', function(req, res){
-    res.send('Delete  user')
+router.delete('/users/:id', function(req, res){
+    users = users.filter(user => user.id != req.params.id)
+    res.send(users)
 })
 
 module.exports = router
