@@ -15,8 +15,15 @@ router.post('/users', function(req, res){
     res.send(users)
 })
 
-router.put('/users', function(req, res){
-    res.send('Put user')
+router.put('/users/:id', function(req, res){
+    users.filter(user => {
+        if(user.id == req.params.id){
+            user.id = req.params.id
+            user.name = req.body.name
+            user.email = req.body.email
+        }
+    })
+    res.send(users)
 })
 
 router.delete('/users', function(req, res){
