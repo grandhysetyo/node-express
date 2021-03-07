@@ -1,24 +1,12 @@
 let users = [
-    { id: 1, name: 'Grandhys', email: 'grandhysetyo@gmail.com' },
-    { id: 2, name: 'Setyo', email: 'grandhysetyo@gmail.com' }
+    
 ]
 
 
 module.exports = {
     index: (req, res) => {
-        if(users.length){
-            res.json({
-                status: true,
-                data: users,
-                method: req.method,
-                url: req.url
-            })
-        } else {
-            res.json({
-                status: false,
-                message: 'Data users is empty'
-            })
-        }
+        
+        res.render('page_user/index', {users})        
     },
     create: (req, res) => {
         users.push(req.body)
