@@ -8,14 +8,21 @@ let users = [
 
 module.exports = {
     index: (req, res) => {        
-        res.render('page_user/index', {users})        
+        User.find((err, result) => {
+            if(err) console.log(err)
+            //success
+            res.render('page_user/index', {data: result})   
+        })
+             
     },
     show: (req, res) => {        
         const id = req.params.id
-        const data = users.filter(user => {
-            return user.id == id
+        User.findById(id, (err, result) => {
+            if(err) console.log(err)
+            //success
+            res.render('page_user/show', {data: result})       
         })
-        res.render('page_user/show', {data: data[0]})        
+         
     },
     create: (req, res) => {
         res.render('page_user/create')
