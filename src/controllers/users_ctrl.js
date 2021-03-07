@@ -1,12 +1,20 @@
 const { v4: uuidv4 } = require('uuid');
 let users = [
-    
+    {id:1, name: 'Gr', email: 'grandhys@gmail.com'},
+    {id:2, name: 'Sety', email: 'setyo@gmail.com'},
 ]
 
 
 module.exports = {
     index: (req, res) => {        
         res.render('page_user/index', {users})        
+    },
+    show: (req, res) => {        
+        const id = req.params.id
+        const data = users.filter(user => {
+            return user.id == id
+        })
+        res.render('page_user/show', {data: data[0]})        
     },
     create: (req, res) => {
         res.render('page_user/create')
@@ -17,13 +25,7 @@ module.exports = {
             name: req.body.name,
             email: req.body.email
         })
-        res.send({
-            status: true,
-            data: users,
-            message: 'Data saved successfully!!',
-            method: req.method,
-            url: req.url
-        })
+        res.redirect('/users')
     },
     edit: (req, res) => {
         users.filter(user => {
