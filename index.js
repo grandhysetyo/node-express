@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const db = require('./src/models/connection')
 
 // Example middleware 
 var myLogger = function (req, res, next) {
