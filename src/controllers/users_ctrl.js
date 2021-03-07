@@ -21,12 +21,30 @@ module.exports = {
         res.render('page_user/create')
     },
     store: (req, res) => {
-        users.push({
-            id: uuidv4(),
+        //Metode save
+        // const user = new User({
+        //     name: req.body.name,
+        //     email: req.body.email,
+        //     password: req.body.password
+        // })
+        // user.save((err, result)=>{
+        //     if(err) console.log(err)
+        //     console.log(result)
+        //     res.redirect('/users')
+        // })  
+        //end
+
+        //Metode create
+        User.create({
             name: req.body.name,
-            email: req.body.email
-        })
-        res.redirect('/users')
+            email: req.body.email,
+            password: req.body.password
+        }, (err, result) => {
+            if(err) console.log(err);
+            //success
+            console.log(result)
+            res.redirect('/users')
+        })      
     },
     edit: (req, res) => {
         users.filter(user => {
