@@ -1,15 +1,22 @@
+const { v4: uuidv4 } = require('uuid');
 let users = [
     
 ]
 
 
 module.exports = {
-    index: (req, res) => {
-        
+    index: (req, res) => {        
         res.render('page_user/index', {users})        
     },
     create: (req, res) => {
-        users.push(req.body)
+        res.render('page_user/create')
+    },
+    store: (req, res) => {
+        users.push({
+            id: uuidv4(),
+            name: req.body.name,
+            email: req.body.email
+        })
         res.send({
             status: true,
             data: users,
