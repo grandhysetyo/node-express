@@ -17,6 +17,11 @@ app.use(myLogger)
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+//Set Template enggine
+app.set('view engine', 'ejs')
+app.set('views','./src/views')
+app.use('/assets',express.static('public')) // set static folder 'assets' => prefix url
+
 // Import router file
 const userRouter = require('./src/router/users')
 
@@ -30,10 +35,10 @@ app.get('/', (req, res) => {
         nama: 'Node JS',
         date: req.requestTime.toString()
     }
-    res.json(kelas)
+    res.render('index', {data: kelas})
 })
 app.get('/about', (req, res) => {
-    res.redirect('/users')
+    res.render('about')
 })
 
 // Routes param
