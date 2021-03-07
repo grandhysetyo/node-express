@@ -8,7 +8,12 @@ let users = [
 
 module.exports = {
     index: (req, res) => {        
-        User.find((err, result) => {
+        let keyword = {}
+        if(req.query.keyword) {
+            keyword = {name: {$regex: req.query.keyword}}
+            console.log
+        }
+        User.find(keyword,'name id', (err, result) => {
             if(err) console.log(err)
             //success
             res.render('page_user/index', {data: result})   

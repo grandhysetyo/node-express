@@ -12,7 +12,10 @@
     
     
     <h3>List User</h3>
-    
+    <form action="/users">
+        <input type="text" name="keyword">
+        <button type="submit">Cari</button>
+    </form>
     <ul>
         <% if(data.length > 0) { %>
         <% data.forEach(item => { %>
