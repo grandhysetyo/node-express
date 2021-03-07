@@ -2,10 +2,22 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-
+// Example middleware 
+var myLogger = function (req, res, next) {
+    console.log('LOGGED')
+    next()
+}
+var requestTime = function (req, res, next) {
+    req.requestTime = new Date()
+    next()
+}
+  
+app.use(requestTime)
+app.use(myLogger)
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+// Import router file
 const userRouter = require('./src/router/users')
 
 // Express Router
@@ -15,7 +27,8 @@ app.use(userRouter)
 app.get('/', (req, res) => {
     const kelas = {
         id: 1,
-        nama: 'Node JS'
+        nama: 'Node JS',
+        date: req.requestTime.toString()
     }
     res.json(kelas)
 })
