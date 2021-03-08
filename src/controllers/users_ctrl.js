@@ -10,15 +10,28 @@ module.exports = {
     index: (req, res) => {        
         let keyword = {}
         if(req.query.keyword) {
-            keyword = {name: {$regex: req.query.keyword}}
-            console.log
+            keyword = {name: {$regex: req.query.keyword}}            
         }
-        User.find(keyword,'name id', (err, result) => {
+        // Metode 1
+        // User.find(keyword,'name id', (err, result) => {
+        //     if(err) console.log(err)
+        //     //success
+        //     res.render('page_user/index', {data: result})   
+        // })
+
+        // Metode 2 - Query Builder 
+        const query = User.find(keyword)
+        query.select('name id')
+        query.exec((err, result) => {
             if(err) console.log(err)
-            //success
-            res.render('page_user/index', {data: result})   
+            //Success
+            console.log(result)
+            res.render('page_user/index', {data: result})
         })
              
+    },
+    create: (req, res) => {
+        res.render('page_user/create')
     },
     show: (req, res) => {        
         const id = req.params.id
@@ -29,9 +42,15 @@ module.exports = {
         })
          
     },
-    create: (req, res) => {
-        res.render('page_user/create')
-    },
+    edit: (req, res) => {        
+        const id = req.params.id
+        User.findById(id, (err, result) => {
+            if(err) console.log(err)
+            //success
+            res.render('page_user/edit', {data: result})       
+        })
+         
+    },    
     store: (req, res) => {
         //Metode save
         // const user = new User({
@@ -58,32 +77,27 @@ module.exports = {
             res.redirect('/users')
         })      
     },
-    edit: (req, res) => {
-        users.filter(user => {
-            if(user.id == req.params.id){
-                user.id = req.params.id
-                user.name = req.body.name
-                user.email = req.body.email
-    
-                return user
-            }
-        })
-        res.json({
-            status: true,
-            data: users,
-            message: 'Data has been successfully updated!!',
-            method: req.method,
-            url: req.url
-        })
+    update: (req, res) => {
+        const dataNew = {
+            name: req.body.name,
+            email: req.body.email
+        }
+        const query = {_id: req.params.id}
+        User.updateOne(query, dataNew,(err, result) => {
+            if(err) console.log(err)
+            //Success
+            console.log(result)
+            res.redirect('/users')
+        })                
+
+        
     },
     delete: (req, res) => {
-        users = users.filter(user => user.id != req.params.id)
-        res.send({
-            status: true,
-            data: users,
-            message: 'Data has been successfully deleted!!',
-            method: req.method,
-            url: req.url
+        const id = {_id: req.params.id}
+        User.deleteOne(id, (err, result) => {
+            if(err) console.log(err)
+            //Success
+            res.redirect('/users')
         })
     }
 }
