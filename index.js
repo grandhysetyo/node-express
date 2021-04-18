@@ -24,9 +24,11 @@ app.set('views','./src/views')
 app.use('/assets',express.static('public')) // set static folder 'assets' => prefix url
 
 // Import router file
+const authRouter = require('./src/router/auth')
 const userRouter = require('./src/router/users')
 
 // Express Router
+app.use(authRouter)
 app.use(userRouter)
 
 // default routes
